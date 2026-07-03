@@ -1,0 +1,19 @@
+cd C:\Users\Estefanio\Downloads\TdX
+
+@"
+node_modules/
+dist/
+.cache/
+coverage/
+.git/
+
+*.zip
+*.exe
+ChromeSetup.exe
+
+*.traineddata
+*.traineddata.gz
+
+.DS_Store
+Thumbs.db
+"@ | Set-Content .gitignore -Encoding UTF8
