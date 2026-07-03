@@ -1,7 +1,53 @@
 /* global Blob */
-import {env,AutoTokenizer,AutoProcessor,RawImage}from'@huggingface/transformers';import*as ort from'onnxruntime-node';import sharp from'sharp';import{resolve}from'node:path';
-env.allowRemoteModels=false;env.localModelPath=resolve('models');
-const[tokenizer,processor,encoder,decoder]=await Promise.all([AutoTokenizer.from_pretrained('manga-ocr'),AutoProcessor.from_pretrained('manga-ocr'),ort.InferenceSession.create('models/manga-ocr/onnx/encoder_model_q4.onnx'),ort.InferenceSession.create('models/manga-ocr/onnx/decoder_model_q4.onnx')]);
-const crop=await sharp('test-pages/japanese-vertical-quality.png').extract({left:80,top:35,width:340,height:450}).png().toBuffer();const image=await RawImage.fromBlob(new Blob([crop]));const processed=await processor(image);const p=processed.pixel_values;const encoded=await encoder.run({pixel_values:new ort.Tensor('float32',p.data,p.dims)});const hidden=encoded.last_hidden_state;const ids=[2];
-for(let step=0;step<64;step++){const input=new ort.Tensor('int64',BigInt64Array.from(ids,BigInt),[1,ids.length]);const out=await decoder.run({input_ids:input,encoder_hidden_states:hidden});const logits=out.logits;const vocab=logits.dims.at(-1);const offset=(logits.dims[1]-1)*vocab;let best=0;for(let i=1;i<vocab;i++)if(logits.data[offset+i]>logits.data[offset+best])best=i;if(best===3)break;ids.push(best)}
-const text=tokenizer.decode(ids,{skip_special_tokens:true}).replace(/\s+/g,'');if(!text.includes('死んでも')||!text.includes('放すなよ'))throw new Error(text);
+import {
+  env,
+  AutoTokenizer,
+  AutoProcessor,
+  RawImage,
+} from "@huggingface/transformers";
+import * as ort from "onnxruntime-node";
+import sharp from "sharp";
+import { resolve } from "node:path";
+env.allowRemoteModels = false;
+env.localModelPath = resolve("models");
+const [tokenizer, processor, encoder, decoder] = await Promise.all([
+  AutoTokenizer.from_pretrained("manga-ocr"),
+  AutoProcessor.from_pretrained("manga-ocr"),
+  ort.InferenceSession.create("models/manga-ocr/onnx/encoder_model_q4.onnx"),
+  ort.InferenceSession.create("models/manga-ocr/onnx/decoder_model_q4.onnx"),
+]);
+const crop = await sharp("test-pages/japanese-vertical-quality.png")
+  .extract({ left: 80, top: 35, width: 340, height: 450 })
+  .png()
+  .toBuffer();
+const image = await RawImage.fromBlob(new Blob([crop]));
+const processed = await processor(image);
+const p = processed.pixel_values;
+const encoded = await encoder.run({
+  pixel_values: new ort.Tensor("float32", p.data, p.dims),
+});
+const hidden = encoded.last_hidden_state;
+const ids = [2];
+for (let step = 0; step < 64; step++) {
+  const input = new ort.Tensor("int64", BigInt64Array.from(ids, BigInt), [
+    1,
+    ids.length,
+  ]);
+  const out = await decoder.run({
+    input_ids: input,
+    encoder_hidden_states: hidden,
+  });
+  const logits = out.logits;
+  const vocab = logits.dims.at(-1);
+  const offset = (logits.dims[1] - 1) * vocab;
+  let best = 0;
+  for (let i = 1; i < vocab; i++)
+    if (logits.data[offset + i] > logits.data[offset + best]) best = i;
+  if (best === 3) break;
+  ids.push(best);
+}
+const text = tokenizer
+  .decode(ids, { skip_special_tokens: true })
+  .replace(/\s+/g, "");
+if (!text.includes("死んでも") || !text.includes("放すなよ"))
+  throw new Error(text);

@@ -1,1 +1,112 @@
-<!doctype html><html lang="pt-BR"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width"><title>Bubble Image Translator</title><style>body{margin:0;width:330px;background:#f6f4ff;color:#25223a;font:14px system-ui}main{padding:18px}h1{font-size:19px;margin:0 0 15px}.field{margin:10px 0}label{display:block;font-weight:650;margin-bottom:5px}select,button{box-sizing:border-box;width:100%;padding:10px;border:1px solid #d7d1ec;border-radius:9px;background:white}button{cursor:pointer;font-weight:750}.primary{margin-top:14px;background:#6651d8;color:white;border:0}.secondary{margin-top:8px}.checks label{font-weight:500;display:flex;gap:8px}.checks input{accent-color:#6651d8}.status{margin:13px 0 0;padding:9px;border-radius:8px;background:#ece8ff}.error{color:#a21d35}.privacy{font-size:11px;color:#6e6980;margin-bottom:0}</style></head><body><main><h1>💬 Bubble Image Translator</h1><div class="field"><label for="source">Idioma de origem</label><select id="source"><option value="auto">Auto</option><option value="kor">Coreano</option><option value="jpn">Japonês</option><option value="chi_sim">Chinês simplificado</option><option value="eng">Inglês</option></select></div><div class="field"><label for="target">Idioma de destino</label><select id="target"><option value="pt">Português do Brasil</option><option value="en">Inglês</option></select></div><div class="checks"><label><input id="original" type="checkbox"> Mostrar texto original</label><label><input id="cache" type="checkbox" checked> Usar cache local</label></div><button class="primary" id="translate">Traduzir tela</button><button class="secondary" id="clear">Limpar traduções</button><div class="status" id="status">Pronto</div><p class="privacy">Processamento local. Nada é enviado para servidores.</p></main><script type="module" src="./popup.ts"></script></body></html>
+<!doctype html>
+<html lang="pt-BR">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width" />
+    <title>Bubble Image Translator</title>
+    <style>
+      body {
+        margin: 0;
+        width: 330px;
+        background: #f6f4ff;
+        color: #25223a;
+        font: 14px system-ui;
+      }
+      main {
+        padding: 18px;
+      }
+      h1 {
+        font-size: 19px;
+        margin: 0 0 15px;
+      }
+      .field {
+        margin: 10px 0;
+      }
+      label {
+        display: block;
+        font-weight: 650;
+        margin-bottom: 5px;
+      }
+      select,
+      button {
+        box-sizing: border-box;
+        width: 100%;
+        padding: 10px;
+        border: 1px solid #d7d1ec;
+        border-radius: 9px;
+        background: white;
+      }
+      button {
+        cursor: pointer;
+        font-weight: 750;
+      }
+      .primary {
+        margin-top: 14px;
+        background: #6651d8;
+        color: white;
+        border: 0;
+      }
+      .secondary {
+        margin-top: 8px;
+      }
+      .checks label {
+        font-weight: 500;
+        display: flex;
+        gap: 8px;
+      }
+      .checks input {
+        accent-color: #6651d8;
+      }
+      .status {
+        margin: 13px 0 0;
+        padding: 9px;
+        border-radius: 8px;
+        background: #ece8ff;
+      }
+      .error {
+        color: #a21d35;
+      }
+      .privacy {
+        font-size: 11px;
+        color: #6e6980;
+        margin-bottom: 0;
+      }
+    </style>
+  </head>
+  <body>
+    <main>
+      <h1>💬 Bubble Image Translator</h1>
+      <div class="field">
+        <label for="source">Idioma de origem</label
+        ><select id="source">
+          <option value="auto">Auto</option>
+          <option value="kor">Coreano</option>
+          <option value="jpn">Japonês</option>
+          <option value="chi_sim">Chinês simplificado</option>
+          <option value="eng">Inglês</option>
+        </select>
+      </div>
+      <div class="field">
+        <label for="target">Idioma de destino</label
+        ><select id="target">
+          <option value="pt">Português do Brasil</option>
+          <option value="en">Inglês</option>
+        </select>
+      </div>
+      <div class="checks">
+        <label
+          ><input id="original" type="checkbox" /> Mostrar texto original</label
+        ><label
+          ><input id="cache" type="checkbox" checked /> Usar cache local</label
+        >
+      </div>
+      <button class="primary" id="translate">Traduzir tela</button
+      ><button class="secondary" id="clear">Limpar traduções</button>
+      <div class="status" id="status">Pronto</div>
+      <p class="privacy">
+        Processamento local. Nada é enviado para servidores.
+      </p>
+    </main>
+    <script type="module" src="./popup.ts"></script>
+  </body>
+</html>

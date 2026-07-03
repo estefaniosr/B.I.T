@@ -1,1 +1,37 @@
-{"name":"bubble-image-translator","version":"1.4.1","private":true,"type":"module","scripts":{"dev":"vite build --watch","build":"vite build && vite build --config vite.worker.config.ts && vite build --config vite.content.config.ts && node scripts/verify-build.mjs","typecheck":"tsc --noEmit","lint":"eslint .","zip":"npm run build && node -e \"require('fs').rmSync('bubble-image-translator.zip',{force:true})\" && cd dist && bestzip ../bubble-image-translator.zip *","test:ocr":"node scripts/test-manga-ocr-manual.mjs && node scripts/test-browser-worker.mjs"},"dependencies":{"@huggingface/transformers":"^3.7.2","@tesseract.js-data/chi_sim":"^1.0.0","@tesseract.js-data/eng":"^1.0.0","@tesseract.js-data/jpn":"^1.0.0","@tesseract.js-data/jpn_vert":"^1.0.0","@tesseract.js-data/kor":"^1.0.0","onnxruntime-web":"^1.21.0","tesseract.js":"^6.0.1"},"devDependencies":{"@eslint/js":"^9.30.1","@types/chrome":"^0.0.326","@types/node":"^26.0.1","bestzip":"^2.2.1","eslint":"^9.30.1","puppeteer-core":"^24.0.0","sharp":"^0.34.5","typescript":"^5.8.3","typescript-eslint":"^8.35.1","vite":"^7.0.0"}}
+{
+  "name": "bubble-image-translator",
+  "version": "1.4.1",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "dev": "vite build --watch",
+    "build": "vite build && vite build --config vite.worker.config.ts && vite build --config vite.content.config.ts && node scripts/verify-build.mjs",
+    "typecheck": "tsc --noEmit",
+    "lint": "eslint .",
+    "zip": "npm run build && node -e \"require('fs').rmSync('bubble-image-translator.zip',{force:true})\" && cd dist && bestzip ../bubble-image-translator.zip *",
+    "test:ocr": "node scripts/test-manga-ocr-manual.mjs && node scripts/test-browser-worker.mjs"
+  },
+  "dependencies": {
+    "@huggingface/transformers": "^3.7.2",
+    "@tesseract.js-data/chi_sim": "^1.0.0",
+    "@tesseract.js-data/eng": "^1.0.0",
+    "@tesseract.js-data/jpn": "^1.0.0",
+    "@tesseract.js-data/jpn_vert": "^1.0.0",
+    "@tesseract.js-data/kor": "^1.0.0",
+    "onnxruntime-web": "^1.21.0",
+    "tesseract.js": "^6.0.1"
+  },
+  "devDependencies": {
+    "@eslint/js": "^9.30.1",
+    "@types/chrome": "^0.0.326",
+    "@types/node": "^26.0.1",
+    "bestzip": "^2.2.1",
+    "eslint": "^9.30.1",
+    "prettier": "^3.9.4",
+    "puppeteer-core": "^24.0.0",
+    "sharp": "^0.34.5",
+    "typescript": "^5.8.3",
+    "typescript-eslint": "^8.35.1",
+    "vite": "^7.0.0"
+  }
+}

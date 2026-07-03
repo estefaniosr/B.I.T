@@ -1,2 +1,24 @@
-import type { Settings, TranslationItem } from './types';
-export type Message = {type:'TRANSLATE';settings:Settings}|{type:'RETRANSLATE'}|{type:'PROCESS_OFFSCREEN';image:string;settings:Settings;cacheKey:string;tabId:number;viewport:{width:number;height:number}}|{type:'OFFSCREEN_RESULT';tabId:number;items:TranslationItem[];showOriginal:boolean;cacheKey:string;useCache:boolean}|{type:'OFFSCREEN_FAILED';tabId:number;error:string}|{type:'CLEAR'}|{type:'RENDER';items:TranslationItem[];showOriginal:boolean}|{type:'STATUS';status:string;error?:string};
+import type { Settings, TranslationItem } from "./types";
+export type Message =
+  | { type: "TRANSLATE"; settings: Settings }
+  | { type: "RETRANSLATE" }
+  | {
+      type: "PROCESS_OFFSCREEN";
+      image: string;
+      settings: Settings;
+      cacheKey: string;
+      tabId: number;
+      viewport: { width: number; height: number };
+    }
+  | {
+      type: "OFFSCREEN_RESULT";
+      tabId: number;
+      items: TranslationItem[];
+      showOriginal: boolean;
+      cacheKey: string;
+      useCache: boolean;
+    }
+  | { type: "OFFSCREEN_FAILED"; tabId: number; error: string }
+  | { type: "CLEAR" }
+  | { type: "RENDER"; items: TranslationItem[]; showOriginal: boolean }
+  | { type: "STATUS"; status: string; error?: string };

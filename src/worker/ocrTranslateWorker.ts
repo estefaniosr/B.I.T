@@ -1,4 +1,33 @@
 /// <reference lib="webworker" />
-import { recognizeImage } from '../lib/ocr';import { imageDimensions } from '../lib/image';import { normalizeBBox } from '../lib/bbox';import type { WorkerEvent,WorkerRequest } from '../lib/types';
-const send=(e:WorkerEvent)=>postMessage(e);
-self.onmessage=async({data}:MessageEvent<WorkerRequest>)=>{try{send({type:'status',status:'Lendo texto'});const size=await imageDimensions(data.image);const rows=await recognizeImage(data.image,data.settings.sourceLang,data.extensionBaseUrl,s=>send({type:'status',status:`Lendo texto — ${s}`}));if(!rows.length)throw new Error('Nenhum texto foi encontrado na área visível.');send({type:'result',items:rows.map(r=>({id:r.id,originalText:r.text,translatedText:r.text,confidence:r.confidence,bbox:normalizeBBox(r.bbox,size,data.viewport),region:r.region}))});}catch(e){send({type:'error',error:e instanceof Error?e.message:String(e)});}};
+import { recognizeImage } from "../lib/ocr";
+import { imageDimensions } from "../lib/image";
+import { normalizeBBox } from "../lib/bbox";
+import type { WorkerEvent, WorkerRequest } from "../lib/types";
+const send = (e: WorkerEvent) => postMessage(e);
+self.onmessage = async ({ data }: MessageEvent<WorkerRequest>) => {
+  try {
+    send({ type: "status", status: "Lendo texto" });
+    const size = await imageDimensions(data.image);
+    const rows = await recognizeImage(
+      data.image,
+      data.settings.sourceLang,
+      data.extensionBaseUrl,
+      (s) => send({ type: "status", status: `Lendo texto — ${s}` }),
+    );
+    if (!rows.length)
+      throw new Error("Nenhum texto foi encontrado na área visível.");
+    send({
+      type: "result",
+      items: rows.map((r) => ({
+        id: r.id,
+        originalText: r.text,
+        translatedText: r.text,
+        confidence: r.confidence,
+        bbox: normalizeBBox(r.bbox, size, data.viewport),
+        region: r.region,
+      })),
+    });
+  } catch (e) {
+    send({ type: "error", error: e instanceof Error ? e.message : String(e) });
+  }
+};
